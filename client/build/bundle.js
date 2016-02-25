@@ -208,6 +208,7 @@
 	  this.owner = params.owner;
 	  this.amount = params.amount;
 	  this.type = params.type;
+	  //this.details = params.details;
 	};
 	
 	module.exports = Account;
@@ -219,23 +220,28 @@
 	module.exports = [
 	  { "owner": "jay",
 	    "amount": 125.50,
-	    "type": "personal"
+	    "type": "personal",
+	    "details":[]
 	  },
 	  { "owner": "val",
 	    "amount": 55125.10,
-	    "type": "personal"
+	    "type": "personal",
+	    "details":[]
 	  },
 	  { "owner": "marc",
 	    "amount": 400.00,
-	    "type": "personal"
+	    "type": "personal",
+	    "details":[]
 	  },
 	  { "owner": "keith",
 	    "amount": 220.25,
-	    "type": "business"
+	    "type": "business",
+	    "details":["No blockers"]
 	  },
 	  { "owner": "rick",
 	    "amount": 100000.00,
-	    "type": "business"
+	    "type": "business",
+	    "details":["hacked on 11.2.2016"]
 	  }
 	]
 
@@ -19935,7 +19941,7 @@
 	      React.createElement(
 	        'h3',
 	        null,
-	        'Total Cash In Buisness Accounts: £ ',
+	        'Total Cash In Business Accounts: £ ',
 	        this.props.bank.totalCash('business')
 	      ),
 	      React.createElement(AccountsList, { filteredAccounts: this.props.bank.filteredAccounts('business') }),
@@ -19964,8 +19970,43 @@
 	var AccountsList = React.createClass({
 	  displayName: 'AccountsList',
 	
+	
 	  render: function render() {
-	    return React.createElement('div', null);
+	    var accounts = this.props.filteredAccounts.map(function (account, index) {
+	      // var accountDetails = function(){
+	      //   if({this.props.account.details.length}>0){
+	      //     {account.details}
+	      // }
+	      return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'li',
+	          { key: index },
+	          ' ',
+	          account.owner,
+	          ' : £ ',
+	          account.amount,
+	          ' '
+	        ),
+	        React.createElement(
+	          'li',
+	          null,
+	          'details: ',
+	          account.details
+	        )
+	      );
+	    });
+	
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'ul',
+	        null,
+	        accounts
+	      )
+	    );
 	  }
 	
 	});
